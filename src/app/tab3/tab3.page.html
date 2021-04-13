@@ -1,17 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>DETAIL NOTES</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-list>
+    <ion-item *ngFor="let data of isiData | async; let i = index">
+      <p>Judul : {{data.judul}}</p><br>
+      <p>Isi notes : {{data.isi}}</p>
+      <p>Tanggal : {{data.tgl}}</p>
+      <p>Nilai : {{data.nilai}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

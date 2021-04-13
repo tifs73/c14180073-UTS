@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +10,20 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(afs : AngularFirestore) {
+    this.isiDataColl = afs.collection('dataNotes');
+    this.isiData = this.isiDataColl.valueChanges();
+  }
 
+  isiData : Observable<data[]>;
+  isiDataColl : AngularFirestoreCollection<data>;
+
+}
+
+interface data {
+  judul : string,
+  isi : string,
+  tgl : string,
+  nilai : string,
+  isiurl : string
 }
