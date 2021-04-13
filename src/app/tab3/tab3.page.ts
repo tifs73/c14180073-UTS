@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { FotoService } from '../services/foto.service';
+
+export interface filefoto {
+  name : string; //di isi filepath
+  path : string //di isi webview path
+}
 
 @Component({
   selector: 'app-tab3',
@@ -9,7 +16,10 @@ import { Observable } from 'rxjs';
 })
 export class Tab3Page {
 
-  constructor(afs : AngularFirestore) {
+  urlimagestorage : string[] = [];
+
+  constructor(afs : AngularFirestore, private afStorage : AngularFireStorage,
+    public FotoService:FotoService) {
     this.isiDataColl = afs.collection('dataNotes');
     this.isiData = this.isiDataColl.valueChanges();
   }
@@ -17,8 +27,31 @@ export class Tab3Page {
   isiData : Observable<data[]>;
   isiDataColl : AngularFirestoreCollection<data>;
 
-  
+  async ionViewDidEnter() {
+    await this.FotoService.loadfoto();
+    this.tampilkandata();
+  }
 
+  tampilkandata() {
+    this.urlimagestorage=[]; //kosongkan semua tampungan url
+    var refimage = this.afStorage.storage.ref('storageimg');
+    refimage.listAll()
+    .then((res) => {
+      res.items.forEach((itemref) => {
+        itemref.getDownloadURL().then(url => {
+          this.urlimagestorage.unshift(url);
+        })
+      });
+    }).catch((error) => { //utk menampilkan error
+      console.log(error);
+    });    
+  }
+
+}
+
+export interface tampilfoto {
+  urlimage : string;
+  filepath : string;
 }
 
 interface data {

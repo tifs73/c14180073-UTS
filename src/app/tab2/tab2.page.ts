@@ -18,6 +18,10 @@ export class Tab2Page {
   isiData : Observable<data[]>;
   isiDataColl : AngularFirestoreCollection<data>;
 
+  detail(i) {
+    //this.isiDataColl = this.afs.collection('posts', ref => ref.orderBy('isiurl'));
+  }
+
 }
 
 interface data {

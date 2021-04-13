@@ -46,7 +46,8 @@ export class Tab1Page {
       this.afStorage.storage.ref().child(imgfilepath).getDownloadURL().then((url) => { 
         this.urlimagestorage.unshift(url);
         alert("Upload foto berhasil");
-        this.urlsave = url;this.isiDataColl.doc(this.Judul).set({
+        this.urlsave = url;
+        this.isiDataColl.doc(this.Judul).set({
           judul : this.Judul,
           isi : this.Isi,
           tgl : this.Tgl,

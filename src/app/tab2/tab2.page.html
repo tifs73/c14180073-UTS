@@ -8,9 +8,11 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let data of isiData | async">
-      <p>{{data.judul}}</p><br>
-      <ion-button routerLink="/tab3">Detail</ion-button>
+    <ion-item *ngFor="let data of isiData | async; let i = index">
+      <ion-label>
+      <h2>{{i+1}}. {{data.judul}}</h2><br>
+      <ion-button routerLink="/tab3" (click)="detail(data.isiurl)">Detail</ion-button>
+    </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
